@@ -10,6 +10,9 @@ flask_cors = "*"
 flask_sqlalchemy = "*"
 sqlalchemy-utils = "*"
 psycopg2 = "*"
+Flask-Bcrypt = "*"
+PyJWT = "*"
+
 
 [requires]
 python_version = "3.6"
