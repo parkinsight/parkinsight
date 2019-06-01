@@ -33,8 +33,8 @@ using postgres for now - [installation for ubuntu 18.04](https://www.digitalocea
 for flask-sqlalchemy (an ORM) to work on ubuntu a few extra libraries need to be installed (if psycopg2 doesn't install using apt-get, use pip): 
 
 ```bash
-sudo apt-get install psycopg2 libpq-dev python-dev
-```
+sudo apt-get install 
+```psycopg2 libpq-dev python-dev
 
 export some environment variables for the database connection string
 
@@ -43,7 +43,9 @@ export POSTGRES_URL="127.0.0.1:5432"
 export POSTGRES_USER="postgres"
 export POSTGRES_PW="root"
 export POSTGRES_DB="parkinsight"
-```
+export FLASK_APP="ParkinsightServer"
+``
+
 
 Finally run the following command to create the database. Using this command will delete existing data. 
 
@@ -56,6 +58,6 @@ flask resetdb
 To start the server:
 
 ```
-$ flask run
+$ flask run --host=0.0.0.0
   Running on http://127.0.0.1:5000/
 ```
