@@ -54,4 +54,9 @@ public class MainActivity extends AppCompatActivity {
     private void startDashboardActivity(){
         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
     }
+
+    private void startVoiceActivity(){
+        Intent intent = new Intent(MainActivity.this, VoiceActivity.class);
+        startActivity(intent);
+    }
 }
