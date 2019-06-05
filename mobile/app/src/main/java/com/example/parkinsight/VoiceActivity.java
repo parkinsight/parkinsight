@@ -24,7 +24,8 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+// TODO: should record and then wait for the user to confirm before saving the recording and sending it to the server
+// TODO: add button to proceed to the next page.
 public class VoiceActivity extends AppCompatActivity {
 
     private MediaRecorder recorder;
@@ -44,7 +45,7 @@ public class VoiceActivity extends AppCompatActivity {
         outputfile = sdf.format(new Date());
         extName = ".wav";
         queue = RequestHandler.getInstance(this).getRequestQueue();
-        filePath = directory+outputfile+extName;
+        filePath = directory + outputfile + extName;
 
         recordButton = findViewById(R.id.recordButton);
 
@@ -114,7 +115,6 @@ public class VoiceActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.d("Response", response);
-                        Toast.makeText(getApplicationContext(), "uhhhh", Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
             @Override
