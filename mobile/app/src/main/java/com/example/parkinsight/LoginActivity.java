@@ -15,8 +15,8 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -56,8 +56,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startSignIn() {
-//        usernameField.setText("email8@gmail.com"); //TODO: delete this
-//        passwordField.setText("password"); // TODO: delete this too
+        usernameField.setText("email8@gmail.com"); //TODO: delete this
+        passwordField.setText("password"); // TODO: delete this too
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
 
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // lol refactor this pls
             String url = "http://192.168.0.21:5000/login";
-            RequestQueue queue = Volley.newRequestQueue(this);
+            RequestQueue queue = RequestHandler.getInstance(this).getRequestQueue();
             Map<String, String>  params = new HashMap<String, String>();
             params.put("email", username);
             params.put("password", password);
@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onResponse(JSONObject response) {
+                            Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                             SharedPreferences pref = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
                             try {
                                 String auth_token = response.getString(auth);

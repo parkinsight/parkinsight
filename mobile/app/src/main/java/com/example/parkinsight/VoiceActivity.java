@@ -20,13 +20,14 @@ import java.util.TimerTask;
 
 public class VoiceActivity extends AppCompatActivity {
 
-    MediaRecorder recorder;
-    Button recordButton;
-    String outputfile,extName;
-    TextView textView;
-    File directory = new File(Environment.getExternalStorageDirectory()+"/Test Recordings");
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+    private MediaRecorder recorder;
+    private Button recordButton;
+    private String outputfile,extName;
+    private TextView textView;
+    private File directory = new File(Environment.getExternalStorageDirectory()+"/Test Recordings");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
     private Handler mHandler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
