@@ -5,10 +5,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.SimpleMultiPartRequest;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,21 +29,22 @@ public class VoiceActivity extends AppCompatActivity {
 
     private MediaRecorder recorder;
     private Button recordButton;
-    private String outputfile,extName;
+    private String outputfile,extName,filePath;
     private TextView textView;
     private File directory = new File(Environment.getExternalStorageDirectory()+"/Test Recordings");
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
     private Handler mHandler = new Handler();
-
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice);
-
         textView = (TextView) findViewById(R.id.textview);
         outputfile = sdf.format(new Date());
         extName = ".wav";
+        queue = RequestHandler.getInstance(this).getRequestQueue();
+        filePath = directory+outputfile+extName;
 
         recordButton = findViewById(R.id.recordButton);
 
@@ -50,16 +58,16 @@ public class VoiceActivity extends AppCompatActivity {
                     if(recorder != null){
                         recorder.release();
                     }
-                    File newFile = new File(directory+outputfile+extName); //Storage/Audio Records/Records/Recorded Audio955.wav
+                    File newFile = new File(filePath); //Storage/Audio Records/Records/Recorded Audio955.wav
                     while(newFile.exists()){
                         outputfile = sdf.format(new Date());
-                        newFile = new File(directory+outputfile+extName);
+                        newFile = new File(filePath);
                     }
                     recorder = new MediaRecorder();
                     recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                     recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
                     recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
-                    recorder.setOutputFile(directory+outputfile+extName);
+                    recorder.setOutputFile(filePath);
                     try {
                         recorder.prepare();
                     } catch (IOException e) {
@@ -77,7 +85,9 @@ public class VoiceActivity extends AppCompatActivity {
                                               recordButton.setText("RECORD");
                                               if(recorder != null){
                                                   recorder.stop();
-                                                  Toast.makeText(VoiceActivity.this,"The audio file is saved to "+directory+outputfile+extName,Toast.LENGTH_LONG).show();
+                                                  postVoiceRecording();
+                                                  Toast.makeText(VoiceActivity.this,"The audio file is saved to "+filePath,Toast.LENGTH_LONG).show();
+
                                               }
                                           }
                                       });
@@ -90,6 +100,31 @@ public class VoiceActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void postVoiceRecording(){
+//      {\ /}
+//      (•-•)
+//      / ~🍪@
+//      Take this biscuit and everything is gonna be okay..
+        String url = "http://192.168.0.21:5000/user/voicerecording" ;
+        SimpleMultiPartRequest smr = new
+                SimpleMultiPartRequest(Request.Method.POST, url,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response", response);
+                        Toast.makeText(getApplicationContext(), "uhhhh", Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        smr.addFile("file", filePath);
+        queue.add(smr);
     }
 
 }
