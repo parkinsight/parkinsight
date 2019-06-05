@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class VoiceActivity extends AppCompatActivity {
@@ -23,7 +25,6 @@ public class VoiceActivity extends AppCompatActivity {
     String outputfile,extName;
     File directory = new File(Environment.getExternalStorageDirectory()+"/Test Recordings");
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-    String currentDateandTime = sdf.format(new Date());
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -61,14 +62,20 @@ public class VoiceActivity extends AppCompatActivity {
                     }
                     recorder.start();
                     Toast.makeText(VoiceActivity.this,"Recording...",Toast.LENGTH_SHORT).show();
+
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run(){
+                            recordButton.setText("RECORD");
+                            if(recorder != null){
+                                recorder.stop();
+                                Toast.makeText(VoiceActivity.this,"The audio file is saved to "+directory+outputfile+extName,Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }, 10000);
                 }
-                else{
-                    recordButton.setText("RECORD");
-                    if(recorder != null){
-                        recorder.stop();
-                        Toast.makeText(VoiceActivity.this,"The audio file is saved to "+directory+outputfile+extName,Toast.LENGTH_LONG).show();
-                    }
-                }
+
+
             }
         });
     }

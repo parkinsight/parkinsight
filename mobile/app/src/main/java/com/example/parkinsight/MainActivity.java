@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView view;
     private Button startButton;
     private Button dashboardButton;
+    private Button testButton;
 
     private static final String PREFERENCES = "prefrences";
     private static final String auth = "auth_token";
@@ -25,13 +26,22 @@ public class MainActivity extends AppCompatActivity {
 
         view = (TextView) (TextView) findViewById(R.id.message);
 
-        startButton = (Button) findViewById(R.id.start);
+        startButton = (Button) findViewById(R.id.startVoice);
         startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startVoiceActivity();
+            }
+        });
+
+        testButton = (Button) findViewById(R.id.startTest);
+        testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startTestActivity();
             }
         });
+
 
         dashboardButton = (Button) findViewById(R.id.dashboard);
         dashboardButton.setOnClickListener(new View.OnClickListener() {

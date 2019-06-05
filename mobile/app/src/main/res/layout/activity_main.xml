@@ -16,6 +16,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -46,19 +47,19 @@
         android:layout_marginEnd="48dp"
         android:layout_marginRight="48dp"
         android:text="no errors or messages"
-        app:layout_constraintEnd_toEndOf="@+id/start"
+        app:layout_constraintEnd_toEndOf="@+id/startVoice"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tablelayout" />
 
     <Button
-        android:id="@+id/start"
+        android:id="@+id/startVoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
         android:layout_marginLeft="144dp"
         android:layout_marginTop="256dp"
         android:layout_marginBottom="8dp"
-        android:text="Start"
+        android:text="VOICE TEST"
         app:layout_constraintBottom_toTopOf="@+id/message"
         app:layout_constraintStart_toStartOf="@+id/tablelayout"
         app:layout_constraintTop_toBottomOf="@+id/dashboard"
@@ -74,4 +75,14 @@
         android:text="Dashboard"
         app:layout_constraintStart_toStartOf="@+id/tablelayout"
         app:layout_constraintTop_toTopOf="@+id/tablelayout" />
+
+    <Button
+        android:id="@+id/startTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        android:text="TAP TEST"
+        app:layout_constraintEnd_toEndOf="@+id/startVoice"
+        app:layout_constraintTop_toBottomOf="@+id/startVoice" />
 </android.support.constraint.ConstraintLayout>
