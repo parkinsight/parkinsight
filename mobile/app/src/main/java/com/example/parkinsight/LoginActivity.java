@@ -56,19 +56,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startSignIn() {
+//        usernameField.setText("email8@gmail.com"); //TODO: delete this
+//        passwordField.setText("password"); // TODO: delete this too
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
-//        String username = "email8@gmail.com";
-//        String password = "password";
 
         if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
             Toast.makeText(LoginActivity.this, "enter an email and password" + username, Toast.LENGTH_LONG).show();
 
         } else {
             // lol refactor this pls
-            String url = "http://192.168.0.102:5000/login";
-            // ok so we need to register. or somehow login. lets just login for now.
-            //we get back a key. put it in shared preferences. well not quite. lets check that youtube video again
+            String url = "http://192.168.0.21:5000/login";
             RequestQueue queue = Volley.newRequestQueue(this);
             Map<String, String>  params = new HashMap<String, String>();
             params.put("email", username);
