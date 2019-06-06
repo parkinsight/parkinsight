@@ -15,7 +15,6 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.series.Series;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,10 +47,11 @@ public class DashboardActivity extends AppCompatActivity {
         Date d5 = calendar.getTime();
 
         graph = (GraphView) findViewById(R.id.graph);
+        graph.setTitle("UPDRS Scores");
+//        graph.getGridLabelRenderer().setVerticalAxisTitle("UPDRS");
 
 
-
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+        LineGraphSeries<DataPoint> lineSeries = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(d1, 1),
                 new DataPoint(d2, 5),
                 new DataPoint(d3, 3),
@@ -61,46 +61,38 @@ public class DashboardActivity extends AppCompatActivity {
                 new DataPoint(d43, 2),
                 new DataPoint(d5, 39)
         });
-        graph.addSeries(series);
+        graph.addSeries(lineSeries);
+        lineSeries.setDrawDataPoints(true);
+        lineSeries.setAnimated(true);
+        lineSeries.setDrawBackground(true);
 
-        PointsGraphSeries<DataPoint> series3 = new PointsGraphSeries<>(new DataPoint[] {
-                new DataPoint(d1, 1),
-                new DataPoint(d2, 5),
-                new DataPoint(d3, 3),
-                new DataPoint(d4, 2),
-                new DataPoint(d41, 4),
-                new DataPoint(d42, 33),
-                new DataPoint(d43, 2),
-                new DataPoint(d5, 39)
-        });
-        graph.addSeries(series3);
-        series3.setSize(10);
-        series3.setColor(Color.RED);
 
-        SimpleDateFormat df = new SimpleDateFormat("MMM d, hh:mmaaa");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, hh:mmaaa");
 
-        // set date label formatter
-        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this, df));
+        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this, dateFormat));
         graph.getGridLabelRenderer().setNumHorizontalLabels(5);
         graph.getGridLabelRenderer().setHorizontalLabelsAngle(115);
 
-//         set manual x bounds to have nice steps
+
         graph.getViewport().setMinX(d42.getTime());
         graph.getViewport().setMaxX(d5.getTime());
         graph.getViewport().setXAxisBoundsManual(true);
 
         graph.getViewport().setScalable(true);
 
-        // as we use dates as labels, the human rounding to nice readable numbers
-// is not necessary
-        graph.getGridLabelRenderer().setHumanRounding(false);
 
-        series3.setOnDataPointTapListener(new OnDataPointTapListener() {
+        graph.getGridLabelRenderer().setHumanRounding(false);
+//        graph.setCursorMode(true);
+
+        // TODO: on tap should display point clicked on the graph.
+        lineSeries.setOnDataPointTapListener(new OnDataPointTapListener() {
             @Override
             public void onTap(Series series, DataPointInterface dataPoint) {
-                Toast.makeText(graph.getContext(), "Series1: On Data Point clicked: "+dataPoint.getY(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(graph.getContext(),  dataPoint.getY() + ", " + dataPoint.getX(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
 
 }
