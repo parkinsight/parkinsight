@@ -2,14 +2,16 @@ from flask import Blueprint, request, make_response, jsonify
 from ParkinsightServer import bcrypt
 from .models import db, User, BlacklistToken
 
-
 bp = Blueprint(__name__, 'routes')
 
 @bp.route('/', methods=['GET'])
 def status():
     """Status endpoint."""
     password = bcrypt.generate_password_hash("yesa", 4).decode()
-    return password
+    responseObject = {
+        'token': password
+    }
+    return make_response(jsonify(responseObject))
 
 @bp.route('/register', methods=['POST'])
 def register():
@@ -54,6 +56,8 @@ def login():
     """Login Endpoint."""
     # get the post data
     post_data = request.get_json()
+    print('email: ' + post_data.get('email'))
+    print('pass: ' + post_data.get('password'))
     try:
         # fetch the user data
         user = User.query.filter_by(
@@ -71,18 +75,32 @@ def login():
                 }
                 return make_response(jsonify(responseObject)), 200
         else:
+            print ("made failure")
             responseObject = {
                 'status': 'fail',
                 'message': 'User does not exist.'
             }
             return make_response(jsonify(responseObject)), 404
     except Exception as e:
-        print(e)
+        print("there was an exception")
         responseObject = {
             'status': 'fail',
             'message': 'Try again'
         }
         return make_response(jsonify(responseObject)), 500
+
+@bp.route('/user/voicerecording', methods=['POST'])
+def user_voiceRecording():
+    """User Voice Recording Endpoint."""
+    if not 'file' in request.files:
+            return make_response(jsonify({'error': 'no file'})), 400
+    f = request.files['file']
+    f.save(f.filename)
+    print(f.filename)
+    responseObject = {
+        'status': f.filename
+    }
+    return make_response(jsonify(responseObject)), 200
 
 @bp.route('/user', methods=['GET'])
 def user_resource():

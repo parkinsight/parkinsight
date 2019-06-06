@@ -1,6 +1,8 @@
 import os
 from flask import Flask
 from flask_bcrypt import Bcrypt # god I doubt this will work
+from flask_cors import CORS
+
 
 def get_env_variable(name):
     try:
@@ -40,6 +42,7 @@ app = create_app({
 })
 
 bcrypt = Bcrypt(app)
+CORS(app)
 
 @app.cli.command()
 def initdb():
