@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startDashboardActivity(){
         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+        startActivity(intent);
     }
 
     private void startVoiceActivity(){
