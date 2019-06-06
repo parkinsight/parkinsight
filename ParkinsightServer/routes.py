@@ -51,6 +51,20 @@ def register():
         return make_response(jsonify(responseObject)), 202
 
 
+# some mock data here.
+@bp.route('/user/<string:username>/scores', methods=['GET'])
+def get_scores(username):
+    """Score Endpoint."""
+    responseObject = {
+        'results': [
+            {'date': '12-05-19', 'score': '45'}, 
+            {'date': '15-06-19', 'score': '59'}, 
+            {'date': '15-02-19', 'score': '77'}, 
+            {'date': '16-02-19', 'score': '79'} 
+        ]
+    }
+    return make_response(jsonify(responseObject)), 200
+
 @bp.route('/login', methods=['POST'])
 def login():
     """Login Endpoint."""
@@ -89,6 +103,7 @@ def login():
         }
         return make_response(jsonify(responseObject)), 500
 
+# TODO: change this to /user/< String:username>/recording
 @bp.route('/user/voicerecording', methods=['POST'])
 def user_voiceRecording():
     """User Voice Recording Endpoint."""

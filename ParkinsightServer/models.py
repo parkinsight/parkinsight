@@ -5,6 +5,13 @@ from ParkinsightServer import bcrypt, app
 
 db = SQLAlchemy()
 
+class TestScore(db.Model):
+    __tablename__ = "TestScores"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    date = db.Column(db.DateTime, nullable=False)
+    score = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
 class User(db.Model):
     """ User Model for storing user related details """
     __tablename__ = "users"
@@ -13,7 +20,7 @@ class User(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     registration_date = db.Column(db.DateTime, nullable=False)
-    
+    scores = db.relationship("TestScore", backref="user")
 
     def __init__(self, email, password):
         self.email = email
