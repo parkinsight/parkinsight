@@ -2,9 +2,10 @@ package com.example.parkinsight;
 
 
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -28,6 +29,11 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+//        DashboardViewModel model = ViewModelProviders.of(this).get(DashboardViewModel.class);
+//        model.getScores().observe(this, users -> {
+//            // update UI
+//        });
 
         Calendar calendar = Calendar.getInstance();
         Date d1 = calendar.getTime();
