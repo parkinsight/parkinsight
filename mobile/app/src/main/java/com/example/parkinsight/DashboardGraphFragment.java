@@ -31,7 +31,6 @@ import java.util.Date;
 
 
 public class DashboardGraphFragment extends Fragment {
-    TextView textView;
     private GraphView graph;
 
 
@@ -40,7 +39,6 @@ public class DashboardGraphFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          View v = inflater.inflate(R.layout.fragment_dashboard_graph, container, false);
-//         textView = (TextView) v.findViewById(R.id.graphfrag);
         graph = (GraphView) v.findViewById(R.id.graph2);
 
          return v;
@@ -50,6 +48,7 @@ public class DashboardGraphFragment extends Fragment {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(DashboardViewModel.class);
         viewModel.getScores().observe(this, item -> {
+
             DataPoint[] dataPoints = new DataPoint[item.scores.length];
 
             for (int x = 0; x < item.scores.length; x ++) {
@@ -59,22 +58,6 @@ public class DashboardGraphFragment extends Fragment {
                 dataPoints[x] = new DataPoint(d, s);
             }
                 Log.e("uunhhh data? ", "the score should  be.... " + item.scores[0].score);
-            Calendar calendar = Calendar.getInstance();
-            Date d1 = calendar.getTime();
-            calendar.add(Calendar.DATE, 1);
-            Date d2 = calendar.getTime();
-            calendar.add(Calendar.DATE, 2);
-            Date d3 = calendar.getTime();
-            calendar.add(Calendar.DATE, 3);
-            Date d4 = calendar.getTime();
-            calendar.add(Calendar.DATE, 7);
-            Date d41 = calendar.getTime();
-            calendar.add(Calendar.DATE, 11);
-            Date d42 = calendar.getTime();
-            calendar.add(Calendar.DATE, 12);
-            Date d43 = calendar.getTime();
-            calendar.add(Calendar.DATE, 23);
-            Date d5 = calendar.getTime();
 
             graph.setTitle("UPDRS Scores");
 
@@ -85,16 +68,16 @@ public class DashboardGraphFragment extends Fragment {
             lineSeries.setDrawBackground(true);
 
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, hh:mmaaa");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d"+ "\n" +"hh:mmaaa");
 
             graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getContext(), dateFormat));
-            graph.getGridLabelRenderer().setNumHorizontalLabels(5);
-            graph.getGridLabelRenderer().setHorizontalLabelsAngle(115);
+            graph.getGridLabelRenderer().setNumHorizontalLabels(3);
 
-
-            graph.getViewport().setMinX(item.scores[item.scores.length-2].date.getTime());
-            graph.getViewport().setMaxX(item.scores[item.scores.length-1].date.getTime());
-            graph.getViewport().setXAxisBoundsManual(true);
+            if(item.scores.length >=3 ) {
+                graph.getViewport().setMinX(item.scores[item.scores.length - 3].date.getTime());
+                graph.getViewport().setMaxX(item.scores[item.scores.length - 1].date.getTime());
+                graph.getViewport().setXAxisBoundsManual(true);
+            }
 
             graph.getViewport().setScalable(true);
 
@@ -108,7 +91,6 @@ public class DashboardGraphFragment extends Fragment {
                     Toast.makeText(graph.getContext(),  dataPoint.getY() + ", " + dataPoint.getX(), Toast.LENGTH_SHORT).show();
                 }
             });
-//                textView.setText("the score is: " + item.scores[0].score);
         });
     }
 

@@ -17,6 +17,12 @@
             android:layout_height="200dip" />
 
 
+        <FrameLayout
+            android:id="@+id/list_container"
+            android:layout_width="match_parent"
+            android:layout_height="200dip" />
+
+
 
     </LinearLayout>
 
