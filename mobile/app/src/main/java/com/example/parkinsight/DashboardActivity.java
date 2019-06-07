@@ -1,11 +1,13 @@
 package com.example.parkinsight;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -13,7 +15,6 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
-import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.series.Series;
 
 import java.text.SimpleDateFormat;
@@ -30,10 +31,10 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-//        DashboardViewModel model = ViewModelProviders.of(this).get(DashboardViewModel.class);
-//        model.getScores().observe(this, users -> {
-//            // update UI
-//        });
+        DashboardViewModel model = ViewModelProviders.of(this).get(DashboardViewModel.class);
+        model.getScores().observe(this, scores -> {
+            Log.e("update ui....", "here we have some scores? " + scores);
+        });
 
         Calendar calendar = Calendar.getInstance();
         Date d1 = calendar.getTime();
@@ -54,8 +55,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         graph = (GraphView) findViewById(R.id.graph);
         graph.setTitle("UPDRS Scores");
-//        graph.getGridLabelRenderer().setVerticalAxisTitle("UPDRS");
-
 
         LineGraphSeries<DataPoint> lineSeries = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(d1, 1),

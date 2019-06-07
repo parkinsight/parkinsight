@@ -3,8 +3,8 @@ package com.example.parkinsight;
 import java.util.Date;
 
 public class Score {
-    private Date date;
-    private int score;
+    public Date date;
+    public int score;
 
     public Score(Date date, int score) {
         this.date = date;
