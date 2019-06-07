@@ -41,66 +41,8 @@ public class DashboardGraphFragment extends Fragment {
                              Bundle savedInstanceState) {
          View v = inflater.inflate(R.layout.fragment_dashboard_graph, container, false);
 //         textView = (TextView) v.findViewById(R.id.graphfrag);
-
-        Calendar calendar = Calendar.getInstance();
-        Date d1 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d2 = calendar.getTime();
-        calendar.add(Calendar.DATE, 2);
-        Date d3 = calendar.getTime();
-        calendar.add(Calendar.DATE, 3);
-        Date d4 = calendar.getTime();
-        calendar.add(Calendar.DATE, 7);
-        Date d41 = calendar.getTime();
-        calendar.add(Calendar.DATE, 11);
-        Date d42 = calendar.getTime();
-        calendar.add(Calendar.DATE, 12);
-        Date d43 = calendar.getTime();
-        calendar.add(Calendar.DATE, 23);
-        Date d5 = calendar.getTime();
-
         graph = (GraphView) v.findViewById(R.id.graph2);
-        graph.setTitle("UPDRS Scores");
 
-        LineGraphSeries<DataPoint> lineSeries = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(d1, 1),
-                new DataPoint(d2, 5),
-                new DataPoint(d3, 3),
-                new DataPoint(d4, 2),
-                new DataPoint(d41, 4),
-                new DataPoint(d42, 33),
-                new DataPoint(d43, 2),
-                new DataPoint(d5, 39)
-        });
-        graph.addSeries(lineSeries);
-        lineSeries.setDrawDataPoints(true);
-        lineSeries.setAnimated(true);
-        lineSeries.setDrawBackground(true);
-
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, hh:mmaaa");
-
-        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getContext(), dateFormat));
-        graph.getGridLabelRenderer().setNumHorizontalLabels(5);
-        graph.getGridLabelRenderer().setHorizontalLabelsAngle(115);
-
-
-        graph.getViewport().setMinX(d42.getTime());
-        graph.getViewport().setMaxX(d5.getTime());
-        graph.getViewport().setXAxisBoundsManual(true);
-
-        graph.getViewport().setScalable(true);
-
-
-        graph.getGridLabelRenderer().setHumanRounding(false);
-
-        // TODO: on tap should display point clicked on the graph.
-        lineSeries.setOnDataPointTapListener(new OnDataPointTapListener() {
-            @Override
-            public void onTap(Series series, DataPointInterface dataPoint) {
-                Toast.makeText(graph.getContext(),  dataPoint.getY() + ", " + dataPoint.getX(), Toast.LENGTH_SHORT).show();
-            }
-        });
          return v;
     }
 
@@ -108,7 +50,64 @@ public class DashboardGraphFragment extends Fragment {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(DashboardViewModel.class);
         viewModel.getScores().observe(this, item -> {
+            DataPoint[] dataPoints = new DataPoint[item.scores.length];
+
+            for (int x = 0; x < item.scores.length; x ++) {
+                Date d = item.scores[x].date;
+                // TODO: change the score type to int so you dont have to parse it.
+                int s = Integer.parseInt(item.scores[x].score);
+                dataPoints[x] = new DataPoint(d, s);
+            }
                 Log.e("uunhhh data? ", "the score should  be.... " + item.scores[0].score);
+            Calendar calendar = Calendar.getInstance();
+            Date d1 = calendar.getTime();
+            calendar.add(Calendar.DATE, 1);
+            Date d2 = calendar.getTime();
+            calendar.add(Calendar.DATE, 2);
+            Date d3 = calendar.getTime();
+            calendar.add(Calendar.DATE, 3);
+            Date d4 = calendar.getTime();
+            calendar.add(Calendar.DATE, 7);
+            Date d41 = calendar.getTime();
+            calendar.add(Calendar.DATE, 11);
+            Date d42 = calendar.getTime();
+            calendar.add(Calendar.DATE, 12);
+            Date d43 = calendar.getTime();
+            calendar.add(Calendar.DATE, 23);
+            Date d5 = calendar.getTime();
+
+            graph.setTitle("UPDRS Scores");
+
+            LineGraphSeries<DataPoint> lineSeries = new LineGraphSeries<>(dataPoints);
+            graph.addSeries(lineSeries);
+            lineSeries.setDrawDataPoints(true);
+            lineSeries.setAnimated(true);
+            lineSeries.setDrawBackground(true);
+
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, hh:mmaaa");
+
+            graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getContext(), dateFormat));
+            graph.getGridLabelRenderer().setNumHorizontalLabels(5);
+            graph.getGridLabelRenderer().setHorizontalLabelsAngle(115);
+
+
+            graph.getViewport().setMinX(item.scores[item.scores.length-2].date.getTime());
+            graph.getViewport().setMaxX(item.scores[item.scores.length-1].date.getTime());
+            graph.getViewport().setXAxisBoundsManual(true);
+
+            graph.getViewport().setScalable(true);
+
+
+            graph.getGridLabelRenderer().setHumanRounding(false);
+
+            // TODO: on tap should display point clicked on the graph.
+            lineSeries.setOnDataPointTapListener(new OnDataPointTapListener() {
+                @Override
+                public void onTap(Series series, DataPointInterface dataPoint) {
+                    Toast.makeText(graph.getContext(),  dataPoint.getY() + ", " + dataPoint.getX(), Toast.LENGTH_SHORT).show();
+                }
+            });
 //                textView.setText("the score is: " + item.scores[0].score);
         });
     }
