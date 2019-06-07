@@ -32,66 +32,66 @@ import java.util.Date;
 
 public class DashboardGraphFragment extends Fragment {
     private GraphView graph;
-
-
     private DashboardViewModel viewModel;
+    private String datePattern = "MMM d" + "\n" + "hh:mmaaa";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         View v = inflater.inflate(R.layout.fragment_dashboard_graph, container, false);
-        graph = (GraphView) v.findViewById(R.id.graph2);
-
-         return v;
+        View v = inflater.inflate(R.layout.fragment_dashboard_graph, container, false);
+        graph = v.findViewById(R.id.graph2);
+        graph.setTitle("UPDRS Scores");
+        return v;
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(DashboardViewModel.class);
+
         viewModel.getScores().observe(this, item -> {
-
-            DataPoint[] dataPoints = new DataPoint[item.scores.length];
-
-            for (int x = 0; x < item.scores.length; x ++) {
-                Date d = item.scores[x].date;
-                // TODO: change the score type to int so you dont have to parse it.
-                int s = Integer.parseInt(item.scores[x].score);
-                dataPoints[x] = new DataPoint(d, s);
-            }
-                Log.e("uunhhh data? ", "the score should  be.... " + item.scores[0].score);
-
-            graph.setTitle("UPDRS Scores");
+            Score[] scores = item.scores;
+            DataPoint[] dataPoints = getDataPointsFromScores(scores);
 
             LineGraphSeries<DataPoint> lineSeries = new LineGraphSeries<>(dataPoints);
             graph.addSeries(lineSeries);
-            lineSeries.setDrawDataPoints(true);
-            lineSeries.setAnimated(true);
-            lineSeries.setDrawBackground(true);
-
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d"+ "\n" +"hh:mmaaa");
-
-            graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getContext(), dateFormat));
-            graph.getGridLabelRenderer().setNumHorizontalLabels(3);
-
-            if(item.scores.length >=3 ) {
-                graph.getViewport().setMinX(item.scores[item.scores.length - 3].date.getTime());
-                graph.getViewport().setMaxX(item.scores[item.scores.length - 1].date.getTime());
-                graph.getViewport().setXAxisBoundsManual(true);
-            }
-
+            formatLineGraphSeries(lineSeries);
+            formatGridLabels(scores);
             graph.getViewport().setScalable(true);
 
-
-            graph.getGridLabelRenderer().setHumanRounding(false);
-
             // TODO: on tap should display point clicked on the graph.
-            lineSeries.setOnDataPointTapListener(new OnDataPointTapListener() {
-                @Override
-                public void onTap(Series series, DataPointInterface dataPoint) {
-                    Toast.makeText(graph.getContext(),  dataPoint.getY() + ", " + dataPoint.getX(), Toast.LENGTH_SHORT).show();
-                }
+            lineSeries.setOnDataPointTapListener((Series series, DataPointInterface dataPoint) -> {
+                    Toast.makeText(graph.getContext(), dataPoint.getY() + ", " + dataPoint.getX(), Toast.LENGTH_SHORT).show();
             });
         });
+    }
+
+    private void formatLineGraphSeries(LineGraphSeries<DataPoint> lineSeries) {
+        lineSeries.setDrawDataPoints(true);
+        lineSeries.setAnimated(true);
+        lineSeries.setDrawBackground(true);
+    }
+
+    private void formatGridLabels(Score[] scores){
+        SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern);
+        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getContext(), dateFormat));
+        graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+        graph.getGridLabelRenderer().setHumanRounding(false);
+
+        if (scores.length >= 3) {
+            graph.getViewport().setMinX(scores[scores.length - 3].date.getTime());
+            graph.getViewport().setMaxX(scores[scores.length - 1].date.getTime());
+            graph.getViewport().setXAxisBoundsManual(true);
+        }
+    }
+
+    private DataPoint[] getDataPointsFromScores(Score[] scores){
+        DataPoint[] dataPoints = new DataPoint[scores.length];
+        for (int x = 0; x < scores.length; x++) {
+            Date d = scores[x].date;
+            int s = scores[x].score;
+            dataPoints[x] = new DataPoint(d, s);
+        }
+        return dataPoints;
     }
 
 

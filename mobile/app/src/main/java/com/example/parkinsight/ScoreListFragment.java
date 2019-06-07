@@ -80,13 +80,13 @@ public class ScoreListFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = getLayoutInflater().inflate(R.layout.score_item, null);
-            TextView dateView = (TextView) convertView.findViewById(R.id.score_date);
-            TextView scoreView = (TextView) convertView.findViewById(R.id.score);
+            TextView dateView = convertView.findViewById(R.id.score_date);
+            TextView scoreView = convertView.findViewById(R.id.score);
             SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d"+ "\n" +"hh:mmaaa");
 
             String date = dateFormat.format(scores[position].date);
             dateView.setText(date);
-            scoreView.setText(scores[position].score);
+            scoreView.setText(scores[position].score + "");
 
             return convertView;
         }

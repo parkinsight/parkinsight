@@ -1,5 +1,7 @@
 package com.example.parkinsight;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -55,17 +57,17 @@ public class MainActivity extends AppCompatActivity {
         view.setText("hopefully auth: " + hopefullyAuth);
     }
 
-    private void startTestActivity(){
+    private void startTestActivity() {
         Intent intent = new Intent(MainActivity.this, TestActivity.class);
         startActivity(intent);
     }
 
-    private void startDashboardActivity(){
+    private void startDashboardActivity() {
         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
         startActivity(intent);
     }
 
-    private void startVoiceActivity(){
+    private void startVoiceActivity() {
         Intent intent = new Intent(MainActivity.this, VoiceActivity.class);
         startActivity(intent);
     }

@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class Score {
     public Date date;
-    public String score;
+    public int score;
 
-    public Score(Date date, String score) {
+    public Score(Date date, int score) {
         this.date = date;
         this.score = score;
     }
@@ -15,7 +15,7 @@ public class Score {
         return date;
     }
 
-    public String getScore() {
+    public int getScore() {
         return score;
     }
 }

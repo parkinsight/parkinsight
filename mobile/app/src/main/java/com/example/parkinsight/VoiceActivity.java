@@ -4,7 +4,9 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,15 +32,15 @@ public class VoiceActivity extends AppCompatActivity {
 
     private MediaRecorder recorder;
     private Button recordButton;
-    private String outputfile,extName,filePath;
+    private String outputfile, extName, filePath;
     private TextView textView;
-    private File directory = new File(Environment.getExternalStorageDirectory()+"/Test Recordings");
+    private File directory = new File(Environment.getExternalStorageDirectory() + "/Test Recordings");
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
     private Handler mHandler = new Handler();
     private RequestQueue queue;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice);
         textView = (TextView) findViewById(R.id.textview);
@@ -52,15 +54,15 @@ public class VoiceActivity extends AppCompatActivity {
         recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(recordButton.getText().toString() );
-                if(recordButton.getText().equals("Record")){
+                textView.setText(recordButton.getText().toString());
+                if (recordButton.getText().equals("Record")) {
                     recordButton.setText("RECORDING");
                     directory.mkdirs();
-                    if(recorder != null){
+                    if (recorder != null) {
                         recorder.release();
                     }
                     File newFile = new File(filePath); //Storage/Audio Records/Records/Recorded Audio955.wav
-                    while(newFile.exists()){
+                    while (newFile.exists()) {
                         outputfile = sdf.format(new Date());
                         newFile = new File(filePath);
                     }
@@ -75,27 +77,27 @@ public class VoiceActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     recorder.start();
-                    Toast.makeText(VoiceActivity.this,"Recording...",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VoiceActivity.this, "Recording...", Toast.LENGTH_SHORT).show();
 
                     new Timer().schedule(
-                              new TimerTask() {
-                                  @Override
-                                  public void run(){
-                                      mHandler.post(new Runnable() {
-                                          public void run() {
-                                              recordButton.setText("RECORD");
-                                              if(recorder != null){
-                                                  recorder.stop();
-                                                  postVoiceRecording();
-                                                  Toast.makeText(VoiceActivity.this,"The audio file is saved to "+filePath,Toast.LENGTH_LONG).show();
+                            new TimerTask() {
+                                @Override
+                                public void run() {
+                                    mHandler.post(new Runnable() {
+                                        public void run() {
+                                            recordButton.setText("RECORD");
+                                            if (recorder != null) {
+                                                recorder.stop();
+                                                postVoiceRecording();
+                                                Toast.makeText(VoiceActivity.this, "The audio file is saved to " + filePath, Toast.LENGTH_LONG).show();
 
-                                              }
-                                          }
-                                      });
-                                  }
-                              }
+                                            }
+                                        }
+                                    });
+                                }
+                            }
 
-                    , 10000);
+                            , 10000);
                 }
 
 
@@ -103,15 +105,15 @@ public class VoiceActivity extends AppCompatActivity {
         });
     }
 
-    private void postVoiceRecording(){
+    private void postVoiceRecording() {
 //      {\ /}
 //      (•-•)
 //      / ~🍪@
 //      Take this biscuit and everything is gonna be okay..
-        String url = "http://192.168.0.21:5000/user/voicerecording" ;
+        String url = "http://192.168.0.21:5000/user/voicerecording";
         SimpleMultiPartRequest smr = new
                 SimpleMultiPartRequest(Request.Method.POST, url,
-                new Response.Listener<String>(){
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d("Response", response);
