@@ -41,7 +41,7 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public LiveData<Scores> getScores() {
         if (scores == null) {
-            scores = new MutableLiveData<Scores>();
+            scores = new MutableLiveData<>();
             loadScores();
         }
         return scores;
@@ -49,7 +49,7 @@ public class DashboardViewModel extends AndroidViewModel {
 
     private void loadScores() {
         // TODO: replace someuser..
-        String url = "http://192.168.0.21:5000/user/someuser/scores";
+        String url = "http://192.168.0.21:5000/user/someuser/scores1";
         RequestQueue queue = RequestHandler.getInstance(getApplication()).getRequestQueue();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -58,6 +58,7 @@ public class DashboardViewModel extends AndroidViewModel {
                             .setDateFormat("yyyy-MM-dd HH:mm:ss").create();
                         Scores s = gson.fromJson(response.toString(), Scores.class);
                         scores.setValue(s);
+                            Log.e("okk: ", "and the length is: " + s.scores.length);
 
                 }, error ->  {
                     Log.e("ERROROROOROROOROOROROOR", "SOMETHING HORRIBLE HAPPENED WHILE LOADING SCORES");
