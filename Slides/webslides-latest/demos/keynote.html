@@ -64,7 +64,6 @@
   <body>
     <header role="banner">
       <nav role="navigation">
-        <p class="logo"><a href="../index.html" title="WebSlides">WebSlides</a></p>
         <ul>
           <li class="github">
             <a rel="external" href="https://github.com/parkinsight/parkinsight" title="Github">
@@ -108,7 +107,7 @@
           <!--.wrap = container (width: 90%) -->
           <div class="wrap size-50">
             <h1>An Android App to track patient and medication performance</h1>
-            <p class="text-intro"> ParkInsight is an open source app that tracks the progression of Parkinson's Disease on a daily basis using sensor data and machine learning.</p>
+            <p class="text-intro"> ParkInsight is an open source app that tracks the effect of Parkinson's Disease on a daily basis using sensor data and machine learning.</p>
             <!--p><code>.bg-white</code></p-->
           </div>
           <!-- .end .wrap -->
@@ -124,64 +123,70 @@
           <div class="wrap">
             <h2>Context</h2>
             <ul class="flexblock features">
+
+              <li>
+                <div>
+                  <h2>
+
+                    <svg class="fa-clipboard">
+                      <use xlink:href="#fa-clipboard"></use>
+                    </svg>
+                    Motor Symptoms
+                  </h2>
+                  Tremors, Rigidity, Bradykinesia, Instability.
+                </div>
+              </li>
+              <li>
+                <div>
+                  <h2>
+                    <svg class="fa-exclamation-triangle">
+                        <use xlink:href="#fa-exclamation-triangle"></use>
+                    </svg>
+                    Diagnosis and tracking
+                  </h2>
+                  MDS-UPDRS Scale is used.
+                </div>
+              </li>
+              <li>
+                <div>
+                  <h2>
+                    <span>
+                    <svg class="fa-clock-o">
+                      <use xlink:href="#fa-clock-o"></use>
+                    </svg>
+                  </span>
+                    Medical Visits
+                  </h2>
+                  Are scheduled every six months.
+                </div>
+              </li>
+
               <li>
                 <div>
                   <h2>
                     <span>0.2<sup>%</sup></span>
-                    Simple Navigation
+                    People
                   </h2>
-                  with arrow keys and swipe.
+                  Are diagnosed with Parkinson's Disease in Canada.
                 </div>
               </li>
               <li>
                 <div>
                   <h2>
-                    <svg class="fa-link">
-                      <use xlink:href="#fa-link"></use>
-                    </svg>
-                    Permalinks
+                    <span>$11k<sup>+</sup></span>
+                    Health System Cost
                   </h2>
-                  Go to a specific slide.
+                  For a PD Patient in Canada.
                 </div>
               </li>
+
               <li>
                 <div>
                   <h2>
-                    <svg class="fa-clock-o">
-                      <use xlink:href="#fa-clock-o"></use>
-                    </svg>
-                    Slide Counter
+                    <span>10<sup>+</sup></span>
+                    Million
                   </h2>
-                  Current/Total number
-                </div>
-              </li>
-              <li>
-                <div>
-                  <h2>
-                    <span>40<sup>+</sup></span>
-                    Beautiful Components
-                  </h2>
-                  Covers, cards, quotes...
-                </div>
-              </li>
-              <li>
-                <div>
-                  <h2>
-                    <svg class="fa-text-height">
-                      <use xlink:href="#fa-text-height"></use>
-                    </svg>
-                    Vertical Rhythm
-                  </h2>
-                  Use multiples of 8.
-                </div>
-              </li>
-              <li>
-                <div>
-                  <h2>
-                    <span>500<sup>+</sup></span>
-                    SVG Icons
-                  </h2>
-                  Font Awesome Kit.
+                  Patients around the world.
                 </div>
               </li>
             </ul>
@@ -209,74 +214,30 @@
             <!-- end .content-left -->
             <div class="content-left">
               <p>Most PD medications have a very limited window of effectiveness, requiring the patients to take the dose in a specfic few hours for the medication to be effective.  </p>
-              <p>We decided to change our design to suit their needs better. While the backend and MVP implementation stays the same, design steps need to be taken to abstract the raw score from the user and displaying performance with changes in Diet, Medication and Sleep routines.  </p>
+              <p>We decided to change our design to suit their needs better. While the backend and MVP implementation stays the same, design steps need to be taken to abstract the raw score from the user and display performance improvements with changes in Diet, Medication and Sleep routines.  </p>
             </div>
             <!-- end .content-left -->
 
           </div>
           <!-- .end .wrap -->
         </section>
+
         <section class="bg-white">
-          <!--.wrap o <nav> = container 1200px -->
           <div class="wrap">
-            <ul class="flexblock metrics border">
-              <li> Founded
-                <span>1976</span>
-              </li>
-              <li>
-                <span>
-                  <svg class="fa-users">
-                    <use xlink:href="#fa-users"></use>
-                  </svg>
-                </span>
-                524M Subscribers
-              </li>
-              <li>
-                <span>
-                  <svg class="fa-line-chart">
-                    <use xlink:href="#fa-line-chart"></use>
-                  </svg>
-                </span>
-                Revenue: $16M
-              </li>
-              <li>
-                Monthly Growth
-                <span>64%</span>
-              </li>
-              <li>
-                <span>
-                  <svg class="fa-building-o">
-                    <use xlink:href="#fa-building-o"></use>
-                  </svg>
-                </span>
-                6 Offices
-              </li>
-              <li>
-                <span>
-                  <svg class="fa-smile-o">
-                    <use xlink:href="#fa-smile-o"></use>
-                  </svg>
-                </span>
-                14K Employees
-              </li>
-              <li>
-                <span>
-                $4M
-                </span>
-                EBITDA
-              </li>
-              <li>
-                <span>
-                  <svg class="fa-university">
-                    <use xlink:href="#fa-university"></use>
-                  </svg>
-                </span>
-                Bank: $76B
-              </li>
-            </ul>
+            <div class="content-left">
+              <h2>Open-Source Collaboration and Data Sharing.</h2>
+            </div>
+            <!-- end .content-left -->
+            <div class="content-left">
+              <p>ParkInsight has been approved for data use by Michael J. Fox Foundation's Parkinson's Progression Marker's Intiative (PPMI) and The National Institute of Neurological Disorders and Stroke (NINDS) Parkinson's Disease Biomarkers Program (PDBP).</p>
+              <p>We are reaching out to more organisations and researchers. Data collected by ParkInsight will be shared openly to further research efforts. </p>
+            </div>
+            <!-- end .content-left -->
+
           </div>
           <!-- .end .wrap -->
         </section>
+
         <section class="bg-white aligncenter">
           <span class="background dark" style="background-image:url('https://source.unsplash.com/pb_lF8VWaPU/')"></span>
           <div class="wrap">
