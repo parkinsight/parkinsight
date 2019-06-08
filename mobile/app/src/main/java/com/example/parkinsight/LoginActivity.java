@@ -3,7 +3,6 @@ package com.example.parkinsight;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,6 +17,8 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,18 +42,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        usernameField = (EditText) findViewById(R.id.username);
-        passwordField = (EditText) findViewById(R.id.password);
-        loginButton = (Button) findViewById(R.id.login);
+        usernameField = findViewById(R.id.username);
+        passwordField = findViewById(R.id.password);
+        loginButton = findViewById(R.id.login);
 
-        responseView = (TextView) findViewById(R.id.response);
+        responseView = findViewById(R.id.response);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startSignIn();
-            }
-        });
+        loginButton.setOnClickListener(v -> startSignIn());
     }
 
     private void startSignIn() {
@@ -61,14 +57,14 @@ public class LoginActivity extends AppCompatActivity {
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
 
-        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
             Toast.makeText(LoginActivity.this, "enter an email and password" + username, Toast.LENGTH_LONG).show();
 
         } else {
             // lol refactor this pls
             String url = "http://192.168.0.21:5000/login";
             RequestQueue queue = RequestHandler.getInstance(this).getRequestQueue();
-            Map<String, String>  params = new HashMap<String, String>();
+            Map<String, String> params = new HashMap<String, String>();
             params.put("email", username);
             params.put("password", password);
 
@@ -88,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 //                                responseView.setText("hopefully auth: " + hopefullyAuth);
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
-                            }catch(JSONException e) {
+                            } catch (JSONException e) {
                                 Toast.makeText(LoginActivity.this, "hmm.. there was an error", Toast.LENGTH_LONG).show();
                             }
                         }
@@ -115,6 +111,6 @@ public class LoginActivity extends AppCompatActivity {
             queue.add(jsonObjectRequest);
 
         }
-        }
+    }
 
 }
