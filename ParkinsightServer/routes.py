@@ -52,15 +52,15 @@ def register():
 
 
 # some mock data here.
-@bp.route('/user/<string:username>/scores', methods=['GET'])
+@bp.route('/user/<string:username>/scores1', methods=['GET'])
 def get_scores(username):
     """Score Endpoint."""
     responseObject = {
-        'results': [
-            {'date': '12-05-19', 'score': '45'}, 
-            {'date': '15-06-19', 'score': '59'}, 
-            {'date': '15-02-19', 'score': '77'}, 
-            {'date': '16-02-19', 'score': '79'} 
+        'scores': [
+            {'date': '2019-05-01 12:59:59', 'score': '45'}, 
+            {'date': '2019-05-02 04:59:59', 'score': '59'}, 
+            {'date': '2019-05-13 05:59:59', 'score': '77'}, 
+            {'date': '2019-05-29 06:59:59', 'score': '79'} 
         ]
     }
     return make_response(jsonify(responseObject)), 200
