@@ -32,7 +32,7 @@ public class DashboardViewModel extends AndroidViewModel {
 
     private void loadScores() {
         // TODO: replace someuser..
-        String url = "http://192.168.0.21:5000/user/someuser/scores1";
+        String url = "https://parkinsight.azurewebsites.net/user/someuser/scores1";
         RequestQueue queue = RequestHandler.getInstance(getApplication()).getRequestQueue();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

@@ -32,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usernameField;
     private EditText passwordField;
     private Button loginButton;
+    private Button registerButton;
+
     private static final String PREFERENCES = "prefrences";
     private static final String auth = "auth_token";
 
@@ -45,15 +47,23 @@ public class LoginActivity extends AppCompatActivity {
         usernameField = findViewById(R.id.username);
         passwordField = findViewById(R.id.password);
         loginButton = findViewById(R.id.login);
+        registerButton = findViewById(R.id.register);
 
-        responseView = findViewById(R.id.response);
+        SharedPreferences pref = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+        String authToken = pref.getString(auth, null);
 
-        loginButton.setOnClickListener(v -> startSignIn());
+//        if(authToken != null) {
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            startActivity(intent);
+//        }
+
+        loginButton.setOnClickListener(v -> startSignIn("login"));
+        registerButton.setOnClickListener(v -> startSignIn("register"));
     }
 
-    private void startSignIn() {
-        usernameField.setText("email8@gmail.com"); //TODO: delete this
-        passwordField.setText("password"); // TODO: delete this too
+    private void startSignIn(String endpoint) {
+//        usernameField.setText("email8@gmail.com"); //TODO: delete this
+//        passwordField.setText("password"); // TODO: delete this too
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
 
@@ -62,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
 
         } else {
             // lol refactor this pls
-            String url = "http://192.168.0.21:5000/login";
+            String url = "https://parkinsight.azurewebsites.net/"+endpoint;
             RequestQueue queue = RequestHandler.getInstance(this).getRequestQueue();
             Map<String, String> params = new HashMap<String, String>();
             params.put("email", username);
@@ -75,13 +85,10 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onResponse(JSONObject response) {
-                            Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                             SharedPreferences pref = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
                             try {
                                 String auth_token = response.getString(auth);
                                 pref.edit().putString(auth, auth_token).commit();
-//                                String hopefullyAuth = pref.getString(auth, null);
-//                                responseView.setText("hopefully auth: " + hopefullyAuth);
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
                             } catch (JSONException e) {

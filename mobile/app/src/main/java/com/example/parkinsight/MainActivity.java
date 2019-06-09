@@ -12,34 +12,20 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView view;
     private Button startButton;
     private Button dashboardButton;
-    private Button testButton;
-
-    private static final String PREFERENCES = "prefrences";
-    private static final String auth = "auth_token";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        view = (TextView) (TextView) findViewById(R.id.message);
 
         startButton = (Button) findViewById(R.id.startVoice);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startVoiceActivity();
-            }
-        });
-
-        testButton = (Button) findViewById(R.id.startTest);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startTestActivity();
             }
         });
 
@@ -52,15 +38,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        SharedPreferences pref = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
-        String hopefullyAuth = pref.getString(auth, null);
-        view.setText("hopefully auth: " + hopefullyAuth);
     }
 
-    private void startTestActivity() {
-        Intent intent = new Intent(MainActivity.this, TestActivity.class);
-        startActivity(intent);
-    }
 
     private void startDashboardActivity() {
         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);

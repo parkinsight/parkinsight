@@ -110,7 +110,7 @@ public class VoiceActivity extends AppCompatActivity {
 //      (•-•)
 //      / ~🍪@
 //      Take this biscuit and everything is gonna be okay..
-        String url = "http://192.168.0.21:5000/user/voicerecording";
+        String url = "https://parkinsight.azurewebsites.net/user/voicerecording";
         SimpleMultiPartRequest smr = new
                 SimpleMultiPartRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
