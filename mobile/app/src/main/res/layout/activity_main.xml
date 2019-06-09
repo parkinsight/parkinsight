@@ -9,12 +9,9 @@
     <TableLayout
         android:id="@+id/tablelayout"
         android:layout_width="0dp"
-        android:layout_height="715dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_height="fill_parent"
+
+        android:background="@color/darkbg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +41,7 @@
         android:layout_marginStart="144dp"
         android:layout_marginTop="256dp"
         android:text="VOICE TEST"
+        android:backgroundTint="@color/Teal"
         app:layout_constraintStart_toStartOf="@+id/tablelayout"
         app:layout_constraintTop_toBottomOf="@+id/dashboard" />
 
@@ -56,6 +54,8 @@
         android:layout_marginTop="44dp"
         android:text="Dashboard"
         app:layout_constraintStart_toStartOf="@+id/tablelayout"
-        app:layout_constraintTop_toTopOf="@+id/tablelayout" />
+        app:layout_constraintTop_toTopOf="@+id/tablelayout"
+        android:backgroundTint="@color/Alt"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
