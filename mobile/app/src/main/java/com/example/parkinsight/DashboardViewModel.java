@@ -16,9 +16,18 @@ import com.android.volley.error.AuthFailureError;
 import com.android.volley.request.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 
+import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 
 public class DashboardViewModel extends AndroidViewModel {
@@ -50,8 +59,9 @@ public class DashboardViewModel extends AndroidViewModel {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, (response) -> {
                     Gson gson = new GsonBuilder()
-                            .setDateFormat("yyyy-MM-dd HH:mm")
+                            .setDateFormat("EEE, dd MMM yyyy HH:mm:ss z")
                             .create();
+
                     Log.e("our response: ", response.toString());
                     Scores s = gson.fromJson(response.toString(), Scores.class);
                     scores.setValue(s);
