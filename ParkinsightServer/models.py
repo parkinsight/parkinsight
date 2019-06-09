@@ -6,7 +6,7 @@ from ParkinsightServer import bcrypt, app
 db = SQLAlchemy()
 
 class TestScore(db.Model):
-    __tablename__ = "TestScores"
+    __tablename__ = "testscores"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date = db.Column(db.DateTime, nullable=False)
     score = db.Column(db.Integer, nullable=False)

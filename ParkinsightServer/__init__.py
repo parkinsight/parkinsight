@@ -69,7 +69,7 @@ def resetdb_command():
 @with_appcontext
 def seed():
     from .models import User, TestScore
-    user = User(email='email2',password='password')
+    user = User(email='email',password='password')
     db.session.add(user)
     db.session.commit()
 

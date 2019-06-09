@@ -71,6 +71,7 @@ def register():
 def get_scores():
     """Score Endpoint."""
     user = get_user_from_auth_token(request)
+    print(user.email)
     # user = User.query.filter_by(email='email').first()
     scores = []
     if user.scores:
