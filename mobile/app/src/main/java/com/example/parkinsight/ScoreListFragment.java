@@ -54,7 +54,6 @@ public class ScoreListFragment extends Fragment {
         viewModel.getScores().observe(this, item -> {
             // TODO : reverse the list so that the dates at the top are most recent
             scores = item.scores;
-            Log.e("score fragment: ","why is a graph appearing here. " + item.scores[0].score);
             CustomAdapter customAdapter = new CustomAdapter();
             listview.setAdapter(customAdapter);
         });

@@ -67,7 +67,7 @@ def register():
         return make_response(jsonify(responseObject)), 202
 
 
-@bp.route('/user/scores', methods=['GET'])
+@bp.route('/user/scores1', methods=['GET'])
 def get_scores():
     """Score Endpoint."""
     user = get_user_from_auth_token(request)

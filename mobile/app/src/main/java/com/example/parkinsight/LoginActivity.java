@@ -99,7 +99,6 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            responseView.setText("there was an error");
                             try {
                                 String responseBody = new String(error.networkResponse.data, "utf-8");
                                 String message = new JSONObject(responseBody).getString("message");
