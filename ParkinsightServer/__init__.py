@@ -2,6 +2,8 @@ import os
 from flask import Flask
 from flask_bcrypt import Bcrypt # god I doubt this will work
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+import sqlalchemy
 
 
 def get_env_variable(name):
@@ -31,8 +33,7 @@ POSTGRES_USER = get_env_variable("POSTGRES_USER")
 POSTGRES_PW = get_env_variable("POSTGRES_PW")
 POSTGRES_DB = get_env_variable("POSTGRES_DB")
 
-DB_URL = 'postgresql+psycopg2://{user}:{pw}@{url}/{db}'.format(user=POSTGRES_USER,pw=POSTGRES_PW,url=POSTGRES_URL,db=POSTGRES_DB)
-
+DB_URL = 'postgresql+psycopg2://{user}:{pw}@{url}/{db}?sslmode=require'.format(user=POSTGRES_USER,pw=POSTGRES_PW,url=POSTGRES_URL,db=POSTGRES_DB)
 
 app = create_app({
     'SECRET_KEY': 'secret',
@@ -46,7 +47,7 @@ CORS(app)
 
 @app.cli.command()
 def initdb():
-    from server.models import db
+    from .models import db
     db.create_all()
 
 @app.cli.command('resetdb')
@@ -71,3 +72,5 @@ app.register_blueprint(bp, url_prefix='')
 
 from .models import db
 db.init_app(app)
+
+# db = sqlalchemy.create_engine('postgresql+pg8000://user:pass@hostname/dbname', connect_args={'sslmode':'require'}, echo=True).connect()
