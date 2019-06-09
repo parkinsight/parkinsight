@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt # god I doubt this will work
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import sqlalchemy
-
+from flask.cli import with_appcontext
 
 def get_env_variable(name):
     try:
@@ -48,7 +48,7 @@ CORS(app)
 @app.cli.command()
 def initdb():
     from .models import db
-    db.create_all()
+    seed()
 
 @app.cli.command('resetdb')
 def resetdb_command():
@@ -66,11 +66,24 @@ def resetdb_command():
     db.create_all()
     print('Shiny!')
 
+@with_appcontext
+def seed():
+    from .models import User, TestScore
+    user = User(email='email2',password='password')
+    db.session.add(user)
+    db.session.commit()
+
+    user = User.query.filter_by(email='email').first()
+    score1 = TestScore(score=23,user_id=user.id,date='2019-05-01 13:23:44')
+    score2 = TestScore(score=44, user_id=user.id, date='2019-05-03 13:23:44')
+    score3 = TestScore(score=66, user_id=user.id, date='2019-05-24 13:23:44')
+
+    db.session.add_all([score1, score2, score3])
+    db.session.commit()
+    print('database seeded')
     
 from .routes import bp
 app.register_blueprint(bp, url_prefix='')
 
 from .models import db
 db.init_app(app)
-
-# db = sqlalchemy.create_engine('postgresql+pg8000://user:pass@hostname/dbname', connect_args={'sslmode':'require'}, echo=True).connect()

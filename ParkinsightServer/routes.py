@@ -4,6 +4,22 @@ from .models import db, User, BlacklistToken
 
 bp = Blueprint(__name__, 'routes')
 
+def get_user_from_auth_token(request):
+    auth_header = request.headers.get('Authorization')
+    auth_token = ''
+    if auth_header:
+        try:
+            auth_token = auth_header.split(" ")[1]
+        except IndexError:
+            return null
+    else:
+        return null
+    if auth_token:
+        resp = User.decode_auth_token(auth_token)
+    if not isinstance(resp, str):    
+        user = User.query.filter_by(id=resp).first()
+        return user
+
 @bp.route('/', methods=['GET'])
 def status():
     """Status endpoint."""
@@ -51,19 +67,24 @@ def register():
         return make_response(jsonify(responseObject)), 202
 
 
-# some mock data here.
-@bp.route('/user/<string:username>/scores1', methods=['GET'])
-def get_scores(username):
+@bp.route('/user/scores', methods=['GET'])
+def get_scores():
     """Score Endpoint."""
-    responseObject = {
-        'scores': [
-            {'date': '2019-05-01 12:59:59', 'score': '45'}, 
-            {'date': '2019-05-02 04:59:59', 'score': '59'}, 
-            {'date': '2019-05-13 05:59:59', 'score': '77'}, 
-            {'date': '2019-05-29 06:59:59', 'score': '79'} 
-        ]
-    }
-    return make_response(jsonify(responseObject)), 200
+    user = get_user_from_auth_token(request)
+    # user = User.query.filter_by(email='email').first()
+    scores = []
+    if user.scores:
+        for x in user.scores:
+            scores.append({'score': x.score, 'date': x.date})
+        responseObject = {
+        'scores': scores
+        }
+        return make_response(jsonify(responseObject)), 200
+    else:
+        responseObject = {
+            'scores': scores
+        }
+        return make_response(jsonify(responseObject)), 200
 
 @bp.route('/login', methods=['POST'])
 def login():
@@ -103,10 +124,13 @@ def login():
         }
         return make_response(jsonify(responseObject)), 500
 
-# TODO: change this to /user/< String:username>/recording
+
+# TODO: hook this up to the model.. should we be saving the wav file? 
+# delete the wav file from disk after
 @bp.route('/user/voicerecording', methods=['POST'])
 def user_voiceRecording():
     """User Voice Recording Endpoint."""
+    user = get_user_from_auth_token(request)
     if not 'file' in request.files:
             return make_response(jsonify({'error': 'no file'})), 400
     f = request.files['file']
@@ -116,45 +140,3 @@ def user_voiceRecording():
         'status': f.filename
     }
     return make_response(jsonify(responseObject)), 200
-
-@bp.route('/user', methods=['GET'])
-def user_resource():
-    """User Resource Endpoint."""
-    # get the auth token
-    auth_header = request.headers.get('Authorization')
-    if auth_header:
-        try:
-            auth_token = auth_header.split(" ")[1]
-        except IndexError:
-            responseObject = {
-                'status': 'fail',
-                'message': 'Bearer token malformed.'
-            }
-            return make_response(jsonify(responseObject)), 401
-    else:
-        auth_token = ''
-    if auth_token:
-        resp = User.decode_auth_token(auth_token)
-        if not isinstance(resp, str):
-            user = User.query.filter_by(id=resp).first()
-            responseObject = {
-                'status': 'success',
-                'data': {
-                    'user_id': user.id,
-                    'email': user.email,
-                    'admin': user.admin,
-                    'registered_on': user.registered_on
-                }
-            }
-            return make_response(jsonify(responseObject)), 200
-        responseObject = {
-            'status': 'fail',
-            'message': resp
-        }
-        return make_response(jsonify(responseObject)), 401
-    else:
-        responseObject = {
-            'status': 'fail',
-            'message': 'Provide a valid auth token.'
-        }
-        return make_response(jsonify(responseObject)), 401
