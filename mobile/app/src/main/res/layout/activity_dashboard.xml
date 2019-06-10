@@ -30,6 +30,17 @@
             android:layout_width="match_parent"
             />
 
+        <Button
+            android:id="@+id/startVoice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/Teal"
+            android:text="Start new TEST"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,10 +51,14 @@
             android:background="@color/darkg"
 
             />
+
+
         <FrameLayout
             android:id="@+id/list_container"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent" />
+            android:layout_height="wrap_content" />
+
+
 
 
 
