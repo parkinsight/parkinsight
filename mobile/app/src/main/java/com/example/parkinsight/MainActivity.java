@@ -21,13 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        startButton = (Button) findViewById(R.id.startVoice);
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startVoiceActivity();
-            }
-        });
+
 
 
         dashboardButton = (Button) findViewById(R.id.dashboard);
@@ -46,8 +40,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void startVoiceActivity() {
-        Intent intent = new Intent(MainActivity.this, VoiceActivity.class);
-        startActivity(intent);
-    }
+
 }

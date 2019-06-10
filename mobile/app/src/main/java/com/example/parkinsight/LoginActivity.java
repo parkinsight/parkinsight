@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 String auth_token = response.getString(auth);
                                 pref.edit().putString(auth, auth_token).commit();
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                                 startActivity(intent);
                             } catch (JSONException e) {
                                 Toast.makeText(LoginActivity.this, "hmm.. there was an error", Toast.LENGTH_LONG).show();
