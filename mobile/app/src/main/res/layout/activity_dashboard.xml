@@ -4,23 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DashboardActivity">
+    tools:context=".DashboardActivity"
+    android:background="@color/darkbg">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UPDRS Scores"
+            android:textColor="@color/white"
+            android:textSize="35dip"
+            android:gravity="center"
+            android:fontFamily="@font/sfprodisplaylight"
+            android:background="@color/darkg"
+
+            />
+
         <FrameLayout
             android:id="@+id/graph_container"
+            android:layout_height="350dip"
             android:layout_width="match_parent"
-            android:layout_height="200dip" />
+            />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recent Scores"
+            android:textColor="@color/white"
+            android:textSize="30dip"
+            android:fontFamily="@font/sfprodisplaylight"
+            android:background="@color/darkg"
 
+            />
         <FrameLayout
             android:id="@+id/list_container"
             android:layout_width="match_parent"
-            android:layout_height="200dip" />
+            android:layout_height="fill_parent" />
 
 
 

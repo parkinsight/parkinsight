@@ -4,6 +4,6 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/SFProDisplayLight" />
+        android:font="@font/sfprodisplaylight" />
 
 </font-family>

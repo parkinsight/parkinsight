@@ -9,21 +9,25 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="-71dp">
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/recordButton"
-            android:layout_width="115dp"
-            android:layout_height="115dp"
+            android:layout_width="115dip"
+            android:layout_height="115dip"
 
-            android:layout_marginTop="246dp"
+            android:layout_marginTop="188dp"
             android:background="@drawable/round_button"
             android:scaleType="fitCenter"
             android:text="Record"
+            android:gravity="center"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,44 +38,52 @@
             android:id="@+id/textviewHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="17dp"
-            android:layout_marginBottom="660dp"
-            android:fontFamily="@font/SFProDisplayLight"
+            android:layout_marginLeft="17dip"
+            android:layout_marginRight="17dip"
+            android:layout_marginBottom="64dp"
+            android:fontFamily="@font/sfprodisplaylight"
             android:text="Voice Test"
             android:textColor="@color/white"
-            android:textSize="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            android:textSize="40dip"
+            app:layout_constraintBottom_toTopOf="@+id/recordButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.979"
+            app:layout_constraintStart_toEndOf="@+id/view"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="348dp"
-            android:fontFamily="@font/SFProTextRegular"
-            android:text="Say 'Aaah' for ten seconds"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="40dip"
+            android:fontFamily="@font/sfprotextregular"
             android:gravity="center"
+            android:text="Say 'Aaah' for ten seconds"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="20dip"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textviewHeader" />
+            app:layout_constraintTop_toBottomOf="@+id/recordButton" />
 
         <View
-            android:layout_width="10dp"
-            android:layout_height="30dp"
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dip"
+            android:layout_marginEnd="7dip"
+            android:layout_marginBottom="8dip"
             android:background="@color/Teal"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="33dp" />
+            app:layout_constraintBottom_toBottomOf="@+id/textviewHeader"
+            app:layout_constraintEnd_toStartOf="@+id/textviewHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textviewHeader" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

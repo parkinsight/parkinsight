@@ -5,14 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background=""
+    android:weightSum="100"
     tools:context=".LoginActivity">
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="40"
+        android:orientation="vertical"
+        >
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="430dp"
-        android:src="@drawable/image" />
+        android:layout_height="fill_parent"
+        android:src="@drawable/rsz_1image"
+        />
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/username"
@@ -21,6 +30,7 @@
         android:background="#00000000"
         android:ems="10"
         android:hint="Username"
+        android:layout_weight="1"
         android:inputType="textPersonName" />
 
     <EditText
@@ -55,10 +65,6 @@
             />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/response"
-        android:layout_width="317dp"
-        android:layout_height="186dp"
-        android:text="no response yet.." />
+
 
 </LinearLayout>

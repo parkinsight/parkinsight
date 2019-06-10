@@ -1,6 +1,7 @@
 package com.example.parkinsight;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
@@ -40,7 +42,8 @@ public class DashboardGraphFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_dashboard_graph, container, false);
         graph = v.findViewById(R.id.graph2);
-        graph.setTitle("UPDRS Scores");
+
+
         return v;
     }
 
@@ -58,6 +61,8 @@ public class DashboardGraphFragment extends Fragment {
             formatGridLabels(scores);
             graph.getViewport().setScalable(true);
 
+
+
             // TODO: on tap should display point clicked on the graph.
             lineSeries.setOnDataPointTapListener((Series series, DataPointInterface dataPoint) -> {
                     Toast.makeText(graph.getContext(), dataPoint.getY() + ", " + dataPoint.getX(), Toast.LENGTH_SHORT).show();
@@ -69,6 +74,7 @@ public class DashboardGraphFragment extends Fragment {
         lineSeries.setDrawDataPoints(true);
         lineSeries.setAnimated(true);
         lineSeries.setDrawBackground(true);
+        //lineSeries.setBackgroundColor(Color.parseColor("#673AB7"));
     }
 
     private void formatGridLabels(Score[] scores){
@@ -76,12 +82,21 @@ public class DashboardGraphFragment extends Fragment {
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getContext(), dateFormat));
         graph.getGridLabelRenderer().setNumHorizontalLabels(3);
         graph.getGridLabelRenderer().setHumanRounding(false);
+        graph.setTitleColor(Color.parseColor("#FFFFFF"));
+        graph.setTitleTextSize(60);
+        graph.getGridLabelRenderer().setGridColor(Color.WHITE);
+        graph.getGridLabelRenderer().setHighlightZeroLines(false);
+
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.WHITE);
+        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.WHITE);
 
         if (scores.length >= 3) {
             graph.getViewport().setMinX(scores[scores.length - 3].date.getTime());
             graph.getViewport().setMaxX(scores[scores.length - 1].date.getTime());
             graph.getViewport().setXAxisBoundsManual(true);
         }
+        graph.getGridLabelRenderer().reloadStyles();
+
     }
 
     private DataPoint[] getDataPointsFromScores(Score[] scores){

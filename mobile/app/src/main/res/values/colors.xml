@@ -8,5 +8,7 @@
     <color name="darkbg">#424250</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="blue">#2d96ff</color>
+    <color name="darkg">#1b1b28</color>
 
 </resources>
