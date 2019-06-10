@@ -8,6 +8,18 @@
     android:weightSum="100"
     tools:context=".LoginActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ParkInsight"
+        android:fontFamily="@font/sfprodisplaylight"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="60dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="20dip"
+        />
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -45,12 +57,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
 
         <Button
             android:id="@+id/login"
-            android:layout_width="208dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Login"
             android:backgroundTint="@color/Teal"
             />
@@ -59,9 +73,9 @@
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text=" sign up"
             android:backgroundTint="@color/Alt"
+            android:layout_weight="1"
             />
     </LinearLayout>
 
