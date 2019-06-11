@@ -4,9 +4,9 @@ By analyzing speech and sensor data with machine learning, ParkInsight assesses 
 Built with Android client interface, Flask server backend and TensorFlow model deployed using Azure Machine Learning Service.
 
 <p float="left">
-  <img src="img/login.png" width="200" style="margin-right:15px"/>
-  <img src="img/voice_test.png" width="200" style="margin-right: 15px" />
-  <img src="img/dashboard.png" width="200"/>
+  <img src="img/login.png" width="250" style="margin-right:1000px" />
+  <img src="img/voice_test.png" width="250"; style="margin-right:1000px" />
+  <img src="img/dashboard.png" width="250"/>
 </p>
 
 ### Acknowledgements
