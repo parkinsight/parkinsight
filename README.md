@@ -1,6 +1,23 @@
 # PARKINSIGHT
+By analyzing speech and sensor data with machine learning, ParkInsight assesses symptoms of Parkinson's disease by using the standard UPDRS scale.
+
+Built with Android client interface, Flask server backend and TensorFlow model deployed using Azure Machine Learning Service.
+
+<p float="left">
+  <img src="img/login.png" width="200" style="margin-right:15px"/>
+  <img src="img/voice_test.png" width="200" style="margin-right: 15px" />
+  <img src="img/dashboard.png" width="200"/>
+</p>
+
+### Acknowledgements
+[UCI Parkinsons Telemonitoring Data Set](https://archive.ics.uci.edu/ml/datasets/parkinsons+telemonitoring) <br>
+A Tsanas, MA Little, PE McSharry, LO Ramig (2009)
+'Accurate telemonitoring of Parkinson’s disease progression by non-invasive speech tests',
+IEEE Transactions on Biomedical Engineering
+
 
 ## Developer Installation
+
 
 [pipenv](https://pipenv.readthedocs.io/en/latest/) - for dependency management.
 
@@ -26,11 +43,11 @@ pipenv shell
 
 and then commands can be run like normal.
 
-## Database 
+## Database
 
-using postgres for now - [installation for ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04) 
+using postgres for now - [installation for ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
 
-for flask-sqlalchemy (an ORM) to work on ubuntu a few extra libraries need to be installed (if psycopg2 doesn't install using apt-get, use pip): 
+for flask-sqlalchemy (an ORM) to work on ubuntu a few extra libraries need to be installed (if psycopg2 doesn't install using apt-get, use pip):
 
 ```bash
 sudo apt-get install psycopg2 libpq-dev python-dev
@@ -47,7 +64,7 @@ export FLASK_APP="ParkinsightServer"
 ```
 
 
-Finally run the following command to create the database. Using this command will delete existing data. 
+Finally run the following command to create the database. Using this command will delete existing data.
 
 ```bash
 flask resetdb
