@@ -1,7 +1,7 @@
 # PARKINSIGHT
 By analyzing speech and sensor data with machine learning, ParkInsight assesses symptoms of Parkinson's disease by using the standard UPDRS scale.
 
-Built with Android client interface, Flask server backend and TensorFlow model deployed using Azure Machine Learning Service.
+Built with Android, a Flask server backend and a TensorFlow model deployed using Azure Machine Learning Service.
 
 <p float="left">
   <img src="img/login.png" width="250" style="margin-right:1000px" />
